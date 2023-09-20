@@ -1,0 +1,21 @@
+/* menu-animation.css */
+.Menu {
+  --border-size: 3px;
+  --border-angle: 0turn;
+  border: var(--border-size) solid transparent;
+  border-image: conic-gradient(from var(--border-angle), #ff9800, #007bff) 1;
+  border-image-slice: 1;
+  animation: border-spin 3s linear infinite;
+}
+
+@keyframes border-spin {
+  to {
+    --border-angle: 1turn;
+  }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0turn;
+}

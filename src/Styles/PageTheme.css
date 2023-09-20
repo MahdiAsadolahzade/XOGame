@@ -1,0 +1,29 @@
+.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+  
+  .dark-mode h1 {
+    color: #ff9800;
+  }
+  
+  .dark-mode button {
+    background-color: #ff9800;
+    color: #1a1a1a;
+  }
+  
+  .light-mode {
+    background-color: #ffffff;
+    color: #333333;
+  }
+  
+  .light-mode h1 {
+    color: #007bff;
+  }
+  
+  .light-mode button {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+  
+  
