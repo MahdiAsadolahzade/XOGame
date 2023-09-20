@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import Loading from "../assets/Icons/Loading";
 const backendUrl = "https://xogame-backend-mahdiasadolahzade.onrender.com";
 
 function LoginForm({
@@ -15,6 +15,7 @@ function LoginForm({
   const [isLoginPanelOpen, setIsLoginPanelOpen] = useState(true);
   const [errorMessages, setErrorMessages] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // اضافه کردن حالت "loading"
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -47,6 +48,8 @@ function LoginForm({
       return;
     }
 
+    setIsLoading(true); // اضافه کردن حالت "loading"
+
     const data = {
       username: username,
       password: password,
@@ -65,6 +68,9 @@ function LoginForm({
       .catch((error) => {
         console.error("Error:", error);
         setErrorMessages(["An error occurred. Please try again later."]);
+      })
+      .finally(() => {
+        setIsLoading(false); // پایان حالت "loading"
       });
   };
 
@@ -75,6 +81,8 @@ function LoginForm({
       setErrorMessages(errors);
       return;
     }
+
+    setIsLoading(true); // اضافه کردن حالت "loading"
 
     const data = {
       username: username,
@@ -91,6 +99,9 @@ function LoginForm({
       .catch((error) => {
         console.error("Error:", error);
         setErrorMessages(["An error occurred during registration."]);
+      })
+      .finally(() => {
+        setIsLoading(false); // پایان حالت "loading"
       });
   };
 
@@ -139,7 +150,13 @@ function LoginForm({
         </h2>
 
         <div className="flex flex-col space-y-4">
-          {isLoggedIn ? (
+          {isLoading ? (
+            <div className="mx-auto">
+              <div className={`animate-spin ${isDarkMode?"text-white":"text-black"}`}>
+                <Loading></Loading>
+              </div>
+            </div>
+          ) : isLoggedIn ? (
             <div className="flex flex-col justify-center items-center">
               <button
                 className={`bg-red-500 text-white rounded-lg p-2 m-2 hover:bg-red-600 transition duration-300 ${
@@ -190,7 +207,7 @@ function LoginForm({
                   }`}
                   onClick={handleLoginClick}
                 >
-                  {isLoginPanelOpen ? "Login" : "Register"}
+                  {isLoading ? "Logging in..." : "Login"}
                 </button>
               ) : (
                 <button
@@ -199,7 +216,7 @@ function LoginForm({
                   }`}
                   onClick={handleRegisterClick}
                 >
-                  {isLoginPanelOpen ? "Login" : "Register"}
+                  {isLoading ? "Registering..." : "Register"}
                 </button>
               )}
             </div>
