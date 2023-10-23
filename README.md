@@ -1,6 +1,4 @@
 
-
-```markdown
 # XO Game with Chat Room
 
 
